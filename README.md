@@ -117,7 +117,8 @@ Commuters in Nairobi face unpredictable fares, delays/queues, and safety inciden
 ## Getting Started (Dev)
 1. Clone: `git clone https://github.com/nelsonmaranda/PLP-Final-Project.git`
 2. Install workspaces once created: `npm install` (root) then per app.
-3. Create `.env` files (`backend`/`frontend`) with MongoDB, JWT, and API keys.
+3. Env vars (backend): copy `backend/ENV_EXAMPLE.txt` to `.env` and fill values:
+   - `MONGO_URI`, `PORT`, `JWT_SECRET`, `FIREBASE_PROJECT_ID`, `FIREBASE_API_KEY`, `FIREBASE_APP_ID`.
 4. Run backend and frontend dev servers (to be added in Week 2–3).
 
 ---

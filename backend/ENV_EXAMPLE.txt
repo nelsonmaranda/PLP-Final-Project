@@ -1,0 +1,6 @@
+MONGO_URI=mongodb+srv://<user>:<password>@<cluster>/smart_matatu_dev?retryWrites=true&w=majority
+PORT=8080
+JWT_SECRET=change_this_in_prod
+FIREBASE_PROJECT_ID=
+FIREBASE_API_KEY=
+FIREBASE_APP_ID=
