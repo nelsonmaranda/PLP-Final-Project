@@ -1,0 +1,10 @@
+﻿{
+  ""name"": ""smart-matatu"",
+  ""version"": ""0.1.0"",
+  ""private"": true,
+  ""workspaces"": [""frontend"",""backend""] ,
+  ""scripts"": {
+    ""start"": ""echo Use workspace scripts"",
+    ""test"": ""echo No tests yet""
+  }
+}
