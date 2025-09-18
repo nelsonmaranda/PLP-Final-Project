@@ -1,8 +1,10 @@
 import React from 'react'
+import { strings } from '../i18n.js'
 
-export default function ReportForm() {
+export default function ReportForm({ lang = 'en' }) {
   const [form, setForm] = React.useState({ routeId: '', fare: '', waitMinutes: '', crowding: 3, incident: 'none' })
   const [status, setStatus] = React.useState('')
+  const t = strings[lang]
 
   async function submitReport(e) {
     e.preventDefault()
@@ -31,27 +33,27 @@ export default function ReportForm() {
 
   return (
     <div>
-      <h2>Submit Report</h2>
+      <h2>{t.report_title}</h2>
       <form onSubmit={submitReport} style={{ display: 'grid', gap: 8, maxWidth: 480 }}>
-        <label>
-          Route ID
-          <input value={form.routeId} onChange={e => setForm({ ...form, routeId: e.target.value })} placeholder="demo-route-id" />
+        <label htmlFor="routeId">
+          {t.route_id}
+          <input id="routeId" value={form.routeId} onChange={e => setForm({ ...form, routeId: e.target.value })} placeholder="demo-route-id" />
         </label>
-        <label>
-          Fare (KES)
-          <input type="number" value={form.fare} onChange={e => setForm({ ...form, fare: e.target.value })} />
+        <label htmlFor="fare">
+          {t.fare}
+          <input id="fare" type="number" value={form.fare} onChange={e => setForm({ ...form, fare: e.target.value })} />
         </label>
-        <label>
-          Wait (mins)
-          <input type="number" value={form.waitMinutes} onChange={e => setForm({ ...form, waitMinutes: e.target.value })} />
+        <label htmlFor="wait">
+          {t.wait}
+          <input id="wait" type="number" value={form.waitMinutes} onChange={e => setForm({ ...form, waitMinutes: e.target.value })} />
         </label>
-        <label>
-          Crowding (1-5)
-          <input type="number" min="1" max="5" value={form.crowding} onChange={e => setForm({ ...form, crowding: e.target.value })} />
+        <label htmlFor="crowding">
+          {t.crowding}
+          <input id="crowding" type="number" min="1" max="5" value={form.crowding} onChange={e => setForm({ ...form, crowding: e.target.value })} />
         </label>
-        <label>
-          Incident
-          <select value={form.incident} onChange={e => setForm({ ...form, incident: e.target.value })}>
+        <label htmlFor="incident">
+          {t.incident}
+          <select id="incident" value={form.incident} onChange={e => setForm({ ...form, incident: e.target.value })}>
             <option value="none">None</option>
             <option value="harassment">Harassment</option>
             <option value="theft">Theft</option>
@@ -59,7 +61,7 @@ export default function ReportForm() {
             <option value="other">Other</option>
           </select>
         </label>
-        <button type="submit">Submit</button>
+        <button type="submit">{t.submit}</button>
       </form>
       <p>{status}</p>
     </div>

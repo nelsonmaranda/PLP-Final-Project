@@ -2,6 +2,7 @@ import React from 'react'
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom'
 import MapView from './MapView.jsx'
 import ReportForm from './ReportForm.jsx'
+import { strings } from '../i18n.js'
 
 export default function App() {
   const [form, setForm] = React.useState({ routeId: '', fare: '', waitMinutes: '', crowding: 3, incident: 'none' })
@@ -32,19 +33,29 @@ export default function App() {
     }
   }
 
+  const [lang, setLang] = React.useState('en')
+  const t = strings[lang]
+
   return (
     <div style={{ fontFamily: 'system-ui, Arial', padding: 16, maxWidth: 960 }}>
       <h1>Smart Matatu</h1>
-      <nav style={{ display: 'flex', gap: 12 }}>
-        <Link to="/">Home</Link>
-        <Link to="/report">Report</Link>
-        <Link to="/map">Map</Link>
+      <nav style={{ display: 'flex', gap: 12 }} aria-label="Primary">
+        <Link to="/">{t.nav_home}</Link>
+        <Link to="/report">{t.nav_report}</Link>
+        <Link to="/map">{t.nav_map}</Link>
         <a href="#" aria-disabled>Admin</a>
       </nav>
+      <div style={{ marginTop: 8 }}>
+        <label htmlFor="lang">Language: </label>
+        <select id="lang" value={lang} onChange={e => setLang(e.target.value)}>
+          <option value="en">English</option>
+          <option value="sw">Kiswahili</option>
+        </select>
+      </div>
       <hr />
       <Routes>
         <Route path="/" element={<p>Welcome. Use Report to submit, Map to view.</p>} />
-        <Route path="/report" element={<ReportForm />} />
+        <Route path="/report" element={<ReportForm lang={lang} />} />
         <Route path="/map" element={<MapView />} />
       </Routes>
       <hr />

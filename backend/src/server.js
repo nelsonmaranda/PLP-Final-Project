@@ -18,8 +18,19 @@ dotenv.config();
 
 const app = express();
 app.use(helmet());
-app.use(cors());
-app.use(express.json());
+const allowList = (process.env.ALLOW_ORIGINS || '*')
+  .split(',')
+  .map(s => s.trim())
+  .filter(Boolean);
+app.use(
+  cors({
+    origin: (origin, cb) => {
+      if (!origin || allowList.includes('*') || allowList.includes(origin)) return cb(null, true);
+      return cb(new Error('Not allowed by CORS'));
+    }
+  })
+);
+app.use(express.json({ limit: '200kb' }));
 app.use(morgan('dev'));
 
 const MONGO_URI = process.env.MONGO_URI || 'mongodb://localhost:27017/smart_matatu_dev';
