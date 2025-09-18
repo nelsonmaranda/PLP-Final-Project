@@ -1,9 +1,6 @@
 import React from 'react'
-import { BrowserRouter, Routes, Route, Link } from 'react-router-dom'
-import MapView from './MapView.jsx'
-import ReportForm from './ReportForm.jsx'
 
-export default function App() {
+export default function ReportForm() {
   const [form, setForm] = React.useState({ routeId: '', fare: '', waitMinutes: '', crowding: 3, incident: 'none' })
   const [status, setStatus] = React.useState('')
 
@@ -33,59 +30,11 @@ export default function App() {
   }
 
   return (
-    <div style={{ fontFamily: 'system-ui, Arial', padding: 16, maxWidth: 960 }}>
-      <h1>Smart Matatu</h1>
-      <nav style={{ display: 'flex', gap: 12 }}>
-        <Link to="/">Home</Link>
-        <Link to="/report">Report</Link>
-        <Link to="/map">Map</Link>
-        <a href="#" aria-disabled>Admin</a>
-      </nav>
-      <hr />
-      <Routes>
-        <Route path="/" element={<p>Welcome. Use Report to submit, Map to view.</p>} />
-        <Route path="/report" element={<ReportForm />} />
-        <Route path="/map" element={<MapView />} />
-      </Routes>
-      <hr />
-      <p>Week 3: layout, simple form & map placeholder.</p>
-    </div>
-  )
-}
-
-function LegacyInlineForm() {
-  const [form, setForm] = React.useState({ routeId: '', fare: '', waitMinutes: '', crowding: 3, incident: 'none' })
-  const [status, setStatus] = React.useState('')
-
-  async function submitReport(e) {
-    e.preventDefault()
-    setStatus('Submitting...')
-    try {
-      const payload = {
-        routeId: form.routeId || 'demo-route-id',
-        fare: form.fare ? Number(form.fare) : undefined,
-        waitMinutes: form.waitMinutes ? Number(form.waitMinutes) : undefined,
-        crowding: Number(form.crowding),
-        incident: form.incident
-      }
-      const res = await fetch('/api/reports', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload)
-      })
-      const data = await res.json()
-      if (!res.ok) throw new Error(data.error || 'Failed')
-      setStatus('Report submitted ✔')
-      setForm({ routeId: '', fare: '', waitMinutes: '', crowding: 3, incident: 'none' })
-    } catch (err) {
-      setStatus('Error: ' + err.message)
-    }
-  }
-
-  return (
-    <form onSubmit={submitReport} style={{ display: 'grid', gap: 8 }}>
+    <div>
+      <h2>Submit Report</h2>
+      <form onSubmit={submitReport} style={{ display: 'grid', gap: 8, maxWidth: 480 }}>
         <label>
-          Route ID (demo ok)
+          Route ID
           <input value={form.routeId} onChange={e => setForm({ ...form, routeId: e.target.value })} placeholder="demo-route-id" />
         </label>
         <label>
@@ -110,8 +59,10 @@ function LegacyInlineForm() {
             <option value="other">Other</option>
           </select>
         </label>
-        <button type="submit">Submit Report</button>
-    </form>
+        <button type="submit">Submit</button>
+      </form>
+      <p>{status}</p>
+    </div>
   )
 }
 
