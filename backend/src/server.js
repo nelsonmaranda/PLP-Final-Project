@@ -6,6 +6,7 @@ import dotenv from 'dotenv';
 import mongoose from 'mongoose';
 import apiRoot from './routes/index.js';
 import routesApi from './routes/routes.js';
+import reportsApi from './routes/reports.js';
 
 dotenv.config();
 
@@ -26,6 +27,7 @@ app.get('/api/health', (_req, res) => {
 // API routes
 app.use('/api', apiRoot);
 app.use('/api/routes', routesApi);
+app.use('/api/reports', reportsApi);
 
 async function start() {
   try {
