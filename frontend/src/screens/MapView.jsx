@@ -4,6 +4,7 @@ import L from 'leaflet'
 
 export default function MapView() {
   const mapRef = React.useRef(null)
+  const [scores, setScores] = React.useState([])
 
   React.useEffect(() => {
     if (mapRef.current) return
@@ -16,7 +17,30 @@ export default function MapView() {
     mapRef.current = map
   }, [])
 
-  return <div id="map" style={{ height: 480, width: '100%', border: '1px solid #ddd' }} />
+  React.useEffect(() => {
+    async function fetchScores() {
+      try {
+        const res = await fetch('/api/scores')
+        const data = await res.json()
+        setScores(data)
+      } catch {}
+    }
+    fetchScores()
+  }, [])
+
+  return (
+    <div>
+      <div id="map" style={{ height: 480, width: '100%', border: '1px solid #ddd' }} />
+      <div style={{ marginTop: 8 }}>
+        <strong>Scores (latest 100)</strong>
+        <ul>
+          {scores.map(s => (
+            <li key={s._id}>{s.routeId} — R:{s.reliability} S:{s.safety} @ {s.timeBucket}</li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  )
 }
 
 

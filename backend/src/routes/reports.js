@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import { z } from 'zod';
 import { Report } from '../models/Report.js';
+import { simpleRateLimit } from '../middleware/rateLimit.js';
 
 const reportsApi = Router();
 
@@ -19,7 +20,7 @@ const createReportSchema = z.object({
   timeBucket: z.string().optional()
 });
 
-reportsApi.post('/', async (req, res) => {
+reportsApi.post('/', simpleRateLimit, async (req, res) => {
   try {
     const payload = createReportSchema.parse(req.body);
     const doc = await Report.create(payload);

@@ -7,6 +7,9 @@ import mongoose from 'mongoose';
 import apiRoot from './routes/index.js';
 import routesApi from './routes/routes.js';
 import reportsApi from './routes/reports.js';
+import scoresApi from './routes/scores.js';
+import cron from 'node-cron';
+import { recomputeScoresForLastDay } from './services/scoring.js';
 
 dotenv.config();
 
@@ -28,10 +31,20 @@ app.get('/api/health', (_req, res) => {
 app.use('/api', apiRoot);
 app.use('/api/routes', routesApi);
 app.use('/api/reports', reportsApi);
+app.use('/api/scores', scoresApi);
 
 async function start() {
   try {
     await mongoose.connect(MONGO_URI);
+    // recompute scores every 30 minutes
+    cron.schedule('*/30 * * * *', async () => {
+      try {
+        await recomputeScoresForLastDay();
+      } catch (e) {
+        // eslint-disable-next-line no-console
+        console.error('Score recompute failed', e);
+      }
+    });
     app.listen(PORT, () => {
       // eslint-disable-next-line no-console
       console.log(`API running on http://localhost:${PORT}`);
