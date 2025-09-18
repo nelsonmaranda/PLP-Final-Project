@@ -10,6 +10,9 @@ import reportsApi from './routes/reports.js';
 import scoresApi from './routes/scores.js';
 import cron from 'node-cron';
 import { recomputeScoresForLastDay } from './services/scoring.js';
+import authApi from './routes/auth.js';
+import usersApi from './routes/users.js';
+import analyticsApi from './routes/analytics.js';
 
 dotenv.config();
 
@@ -32,6 +35,9 @@ app.use('/api', apiRoot);
 app.use('/api/routes', routesApi);
 app.use('/api/reports', reportsApi);
 app.use('/api/scores', scoresApi);
+app.use('/api/auth', authApi);
+app.use('/api/users', usersApi);
+app.use('/api/analytics', analyticsApi);
 
 async function start() {
   try {
