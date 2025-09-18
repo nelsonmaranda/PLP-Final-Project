@@ -121,5 +121,12 @@ Commuters in Nairobi face unpredictable fares, delays/queues, and safety inciden
    - `MONGO_URI`, `PORT`, `JWT_SECRET`, `FIREBASE_PROJECT_ID`, `FIREBASE_API_KEY`, `FIREBASE_APP_ID`.
 4. Run backend and frontend dev servers (to be added in Week 2–3).
 
+## Week 7 – Deployment (Firebase)
+- Install Firebase Tools: `npm i -g firebase-tools`
+- Login and select project: `firebase login` then update `.firebaserc` with your project id.
+- Build frontend: `npm run build`
+- Deploy hosting and functions (stub): `firebase deploy --only hosting,functions`
+- After deploy, test: `https://<project-id>.web.app` and check `/api/health` via functions rewrite.
+
 ---
 This README consolidates Week 1 planning and the 8‑week execution plan. Detailed design docs live in `docs/` and will be synced here as features evolve.

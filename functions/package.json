@@ -1,0 +1,12 @@
+{
+  "name": "smart-matatu-functions",
+  "private": true,
+  "engines": { "node": "^18" },
+  "main": "index.js",
+  "dependencies": {
+    "firebase-functions": "^4.8.1",
+    "firebase-admin": "^12.6.0",
+    "express": "^4.19.2"
+  }
+}
+
