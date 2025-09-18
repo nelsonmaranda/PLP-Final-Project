@@ -39,7 +39,7 @@ Commuters in Nairobi face unpredictable fares, delays/queues, and safety inciden
 - Backend: Node.js/Express, background job worker (Bull/Redis) for score aggregation.
 - Database: MongoDB with GeoJSON for stops/segments and time-bucketed aggregates.
 - Notifications: SMS/WhatsApp (Africa’s Talking/Twilio) for route alerts.
-- Hosting: Vercel/Netlify (frontend), Render/railway.app/Fly.io (backend), MongoDB Atlas.
+- Hosting: Firebase Hosting (frontend) and Firebase Cloud Functions / Cloud Run (backend API), MongoDB Atlas for data.
 
 ### Core Collections (high level)
 - `users`: auth profile, role (commuter, moderator, admin).
